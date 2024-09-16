@@ -42,5 +42,8 @@ namespace Tamagochi
     {
         [JsonPropertyName("results")]
         public List<PokemonResult> Results { get; set; }
+
+        public int StatusCode { get; set; }
+        public string MessageError { get; set; }
     }
 }
