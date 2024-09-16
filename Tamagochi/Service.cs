@@ -84,7 +84,7 @@ namespace Tamagochi
             var response = GetPokemon(codPokemon);
             string retorno = "\n--------------------------------- ------------------- ------------------------------------------\n";
             retorno += $"{NomeUsuario} você deseja:\n";
-            retorno += $"1 - Saber mais sobre {response.Result.Nome}.\n2 - Ver seus mascotes.\n3 - Sair.\n";
+            retorno += $"1 - Saber mais sobre {response.Result.Nome}.\n2 - Adotar {response.Result.Nome}.\n3 - Sair.\n";
 
             return retorno.ToUpper();
         }

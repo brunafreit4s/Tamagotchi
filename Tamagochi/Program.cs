@@ -35,9 +35,23 @@ while (true)
                             case 1:
                                 // Consulta sobre o pokemon selecionado (peso, altura, nome, etc.)
                                 Console.WriteLine(servico.GetSobrePokemon(codPokemon));
+                                // Consulta nome do pokemon selecionado
+                                Console.WriteLine(servico.GetMenuSecundario(codPokemon));
                                 break;
                             case 2:
-                                Console.WriteLine($"{servico.NomeUsuario}, Mascote adotado com sucesso, o ovo está chocando...");
+                                Console.WriteLine($"\n{servico.NomeUsuario}, Mascote adotado com sucesso, o ovo está chocando...");
+                                Console.WriteLine("──────────────");
+                                Console.WriteLine("────▄████▄────");
+                                Console.WriteLine("──▄████████▄──");
+                                Console.WriteLine("──██████████──");
+                                Console.WriteLine("──▀████████▀──");
+                                Console.WriteLine("─────▀██▀─────");
+                                Console.WriteLine("──────────────");
+                                break;
+                            case 3:
+                                return;
+                            default:
+                                Console.WriteLine("Escolha inválida. Tente novamente.");
                                 break;
                         }
                     }
@@ -52,14 +66,15 @@ while (true)
                 }
                 break;
             case 2:
-                Console.WriteLine("Ainda não disponível");
-                //Console.WriteLine(servico.GetMeusPokemons);
+                Console.WriteLine("Ainda não disponível...");
+                //Console.WriteLine(servico.GetPokedex);
                 break;
             case 3:
+                Console.WriteLine("Obrigado por jogar! Até a próxima!");
                 Console.WriteLine("Saindo...");
-                break;
+                return;
             default:
-                Console.WriteLine();
+                Console.WriteLine("Escolha inválida. Tente novamente.");
                 break;
         }
     }
