@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Tamagochi.Models
+﻿namespace Tamagochi.Models
 {
     public class Pokedex
     {
+        public List<Pokemon> Pokemons { get; set; } = new List<Pokemon>(); 
     }
 }
