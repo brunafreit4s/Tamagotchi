@@ -2,18 +2,17 @@
 
 namespace Tamagochi.Views
 {
-    public class TamagochiView
+    public class TamagotchiView
     {
         public void Start()
         {
-            TamagochiController tamagochiController = new TamagochiController();
+            TamagotchiController tamagochiController = new TamagotchiController();
 
             Console.WriteLine(tamagochiController.Titulo + "\nQual seu nome?");
 
             tamagochiController.NomeUsuario = Console.ReadLine();
 
-            Console.WriteLine(tamagochiController.GetMenuPrincipal(tamagochiController.NomeUsuario));
-
+            tamagochiController.GetMenuPrincipal();
             tamagochiController.GetStart();
         }
     }

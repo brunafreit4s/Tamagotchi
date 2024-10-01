@@ -1,50 +1,40 @@
 ﻿using Tamagochi.Models;
+using Tamagochi.Models.DTO;
 
 namespace Tamagochi.Controllers
 {
     public class PokedexController : PokemonController
     {
         public Pokedex pokedex = new Pokedex();
+        public List<TamagotchiDto> pokedex2 = new List<TamagotchiDto>();
         private Pokemon _pokemon = new Pokemon();
 
         public void PutPokedex(int codPokemon)
-        {            
-            var response = GetPokemonApi(codPokemon);
+        {
+            var response = GetPokemonApi(codPokemon).Result;
 
             if (response != null)
             {
-                if (pokedex.Pokemons.Count > 0)
-                {
-                    for (int i = 0; i < pokedex.Pokemons.Count; i++)
-                    {
-                        if (pokedex.Pokemons[i].Id != response.Result.Id)
-                        {
-                            pokedex.Pokemons.Add(response.Result);                            
-                        }
-                    }
-                }
-                else
-                {
-                    pokedex.Pokemons.Add(response.Result);
-                }
+                var tamagotchi = new TamagotchiDto();
+                tamagotchi.AtualizarPropriedades(response);
+                pokedex2.Add(tamagotchi);
             }
-        }
-
-        public string GetPokedex()
+        }       
+        
+        public void GetPokedex()
         {
             string retorno = "\n---------------------------------------- Pokedex ----------------------------------------\n";
 
-            if (pokedex.Pokemons.Count != 0)
+            if (pokedex2.Count != 0)
             {
-                string textPokemon = (pokedex.Pokemons.Count > 1) ? "Pokemons" : "Pokemon";
+                string textPokemon = (pokedex2.Count > 1) ? "Pokemons" : "Pokemon";
 
-                retorno += $"\nVocê tem {pokedex.Pokemons.Count} {textPokemon}";
+                retorno += $"\nVocê tem {pokedex2.Count} {textPokemon}";
 
-                for (int i = 0; i < pokedex.Pokemons.Count; i++)
+                for (int i = 0; i < pokedex2.Count; i++)
                 {
-                    retorno += $"\n{i + 1} - {pokedex.Pokemons[i].Nome}";
+                    retorno += $"\n{i + 1} - {pokedex2[i].Nome}\n";
                 }
-                return retorno.ToUpper();
             }
             else
             {
@@ -61,46 +51,19 @@ namespace Tamagochi.Controllers
                 retorno += $"     ▀████████████████▀      \n";
             }
 
-            return retorno.ToUpper();
+            Console.Write(retorno.ToUpper());
         }
-
+        
         public Pokemon GetPokemon(int posicaoPokemon)
         {
             posicaoPokemon = (posicaoPokemon - 1);
-            // melhorar com automapper
-            _pokemon.Id = pokedex.Pokemons[posicaoPokemon].Id;
-            _pokemon.Nome = pokedex.Pokemons[posicaoPokemon].Nome;
-            _pokemon.Status.Fome = pokedex.Pokemons[posicaoPokemon].Status.Fome;
-            _pokemon.Status.Humor = pokedex.Pokemons[posicaoPokemon].Status.Humor;
-            _pokemon.Status.Sono = pokedex.Pokemons[posicaoPokemon].Status.Sono;
+            _pokemon.Id = pokedex2[posicaoPokemon].Id;
+            _pokemon.Nome = pokedex2[posicaoPokemon].Nome;
+            _pokemon.Status.Alimentacao = pokedex2[posicaoPokemon].Status.Alimentacao;
+            _pokemon.Status.Humor = pokedex2[posicaoPokemon].Status.Humor;
+            _pokemon.Status.Energia = pokedex2[posicaoPokemon].Status.Energia;
+            _pokemon.Status.Saude = pokedex2[posicaoPokemon].Status.Saude;
             return _pokemon;
-        }
-
-        public void BrincarMascote(int posicaoPokemon)
-        {
-            posicaoPokemon = (posicaoPokemon - 1);
-
-            pokedex.Pokemons[posicaoPokemon].Status.Fome--;
-            pokedex.Pokemons[posicaoPokemon].Status.Humor++;
-            pokedex.Pokemons[posicaoPokemon].Status.Sono--;
-        }
-
-        public void DormirMascote(int posicaoPokemon)
-        {
-            posicaoPokemon = (posicaoPokemon - 1);
-
-            pokedex.Pokemons[posicaoPokemon].Status.Fome--;
-            pokedex.Pokemons[posicaoPokemon].Status.Humor++;
-            pokedex.Pokemons[posicaoPokemon].Status.Sono++;
-        }
-
-        public void AlimentarMascote(int posicaoPokemon)
-        {
-            posicaoPokemon = (posicaoPokemon - 1);
-
-            pokedex.Pokemons[posicaoPokemon].Status.Fome++;
-            pokedex.Pokemons[posicaoPokemon].Status.Humor++;
-            pokedex.Pokemons[posicaoPokemon].Status.Sono--;
         }
     }
 }

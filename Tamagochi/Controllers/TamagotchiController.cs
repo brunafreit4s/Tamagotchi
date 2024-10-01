@@ -1,16 +1,19 @@
 ﻿
 
+using Tamagochi.Models.DTO;
+
 namespace Tamagochi.Controllers
 {
-    public class TamagochiController : MenuController
+    public class TamagotchiController : MenuController
     {
-        public readonly string Titulo = "\n\r\n                                      ███████████████████████████████▀████████████████████\r\n" +
-                  "                                      █─▄─▄─██▀▄─██▄─▀█▀─▄██▀▄─██─▄▄▄▄█─▄▄─█─▄▄▄─█─█─█▄─▄█\r\n" +
-                  "                                      ███─████─▀─███─█▄█─███─▀─██─██▄─█─██─█─███▀█─▄─██─██\r\n" +
-                  "                                      ▀▀▄▄▄▀▀▄▄▀▄▄▀▄▄▄▀▄▄▄▀▄▄▀▄▄▀▄▄▄▄▄▀▄▄▄▄▀▄▄▄▄▄▀▄▀▄▀▄▄▄▀\n\n\n";
+        public readonly string Titulo = "\n\r\n                                      ███████████████████████████████▀██████████████████████████\r\n" +
+                  "                                      █─▄─▄─██▀▄─██▄─▀█▀─▄██▀▄─██─▄▄▄▄█─▄▄─█─▄─▄─█─▄▄▄─█─█─█▄─▄█\r\n" +
+                  "                                      ███─████─▀─███─█▄█─███─▀─██─██▄─█─██─███─███─███▀█─▄─██─██\r\n" +
+                  "                                      ▀▀▄▄▄▀▀▄▄▀▄▄▀▄▄▄▀▄▄▄▀▄▄▀▄▄▀▄▄▄▄▄▀▄▄▄▄▀▀▄▄▄▀▀▄▄▄▄▄▀▄▀▄▀▄▄▄▀\n\n\n";
 
-        public string NomeUsuario = "";
+        
         private UtilController _utilController = new UtilController();
+        TamagotchiDto _tamagochiDto = new TamagotchiDto();
 
         public void GetStart()
         {
@@ -24,7 +27,7 @@ namespace Tamagochi.Controllers
                     {
                         case 1:
                             // Apresenta menu de pokemons disponíveis para adoção
-                            Console.WriteLine(GetMenuAdocao(NomeUsuario));
+                            GetMenuAdocao();
 
                             int codPokemon = 0;
                             if (int.TryParse(Console.ReadLine(), out codPokemon))
@@ -32,12 +35,12 @@ namespace Tamagochi.Controllers
                                 try
                                 {
                                     // Consulta nome do pokemon selecionado
-                                    Console.WriteLine(GetMenuSecundario(NomeUsuario, codPokemon));
+                                    GetMenuSecundario(codPokemon);
                                 }
                                 catch
                                 {
                                     Console.WriteLine("Não foi possível encontrar o Pokemon informado, tente novamente!");
-                                    Console.WriteLine(GetMenuPrincipal(NomeUsuario));
+                                    GetMenuPrincipal();
                                     break;
                                 }
 
@@ -51,9 +54,9 @@ namespace Tamagochi.Controllers
                                         {
                                             case 1:
                                                 // Consulta sobre o pokemon selecionado (peso, altura, nome, etc.)
-                                                Console.WriteLine(GetSobrePokemon(codPokemon));
+                                                GetSobrePokemon(codPokemon);
                                                 // Consulta nome do pokemon selecionado
-                                                Console.WriteLine(GetMenuSecundario(NomeUsuario, codPokemon));
+                                                GetMenuSecundario(codPokemon);
                                                 break;
                                             case 2:
                                                 Console.WriteLine($"\n{NomeUsuario}, Mascote adotado com sucesso, o ovo está chocando...\n");
@@ -66,11 +69,11 @@ namespace Tamagochi.Controllers
                                                 Console.WriteLine("              ");
                                                 //Guarda Pokemon adotado na Pokedex
                                                 PutPokedex(codPokemon);
-                                                Console.WriteLine(GetMenuSecundario(NomeUsuario, codPokemon));
+                                                GetMenuSecundario(codPokemon);
                                                 break;
                                             case 3:
                                                 continuarMenuSecundario = 0;
-                                                Console.WriteLine(GetMenuPrincipal(NomeUsuario));
+                                                GetMenuPrincipal();
                                                 break;
                                             default:
                                                 _utilController.RetornaOpcaoInvalida();
@@ -91,13 +94,13 @@ namespace Tamagochi.Controllers
                             break;
                         case 2:
                             //Retorna Pokemons adotados
-                            Console.WriteLine(GetPokedex());
+                            GetPokedex();
 
                             int posicaoPokemon = 0;
 
                             if (int.TryParse(Console.ReadLine(), out posicaoPokemon))
                             {
-                                Console.WriteLine(GetMenuSobrePokemon(NomeUsuario, posicaoPokemon));
+                                GetMenuSobrePokemon(posicaoPokemon);
 
                                 int continuarMenuPokemons = 1;
 
@@ -109,30 +112,31 @@ namespace Tamagochi.Controllers
                                         switch (opcaoEscolhida2)
                                         {
                                             case 1:
-                                                Console.WriteLine(GetMenuStatusPokemon(posicaoPokemon));
-                                                Console.WriteLine(GetMenuSobrePokemon(NomeUsuario, posicaoPokemon));
+                                                _tamagochiDto.MostrarStatus();
+                                                GetMenuSobrePokemon(posicaoPokemon);
                                                 break;
                                             case 2:
-                                                AlimentarMascote(posicaoPokemon);
-                                                Console.WriteLine("Mascote alimentado =^-^=\n");
-                                                Console.WriteLine(GetMenuSobrePokemon(NomeUsuario, posicaoPokemon));
+                                                _tamagochiDto.Alimentar();
+                                                GetMenuSobrePokemon(posicaoPokemon);
                                                 break;
                                             case 3:
-                                                BrincarMascote(posicaoPokemon);
-                                                Console.WriteLine("Mascote se divertiu bastante *_*");
-                                                Console.WriteLine(GetMenuSobrePokemon(NomeUsuario, posicaoPokemon));
+                                                _tamagochiDto.Brincar();
+                                                GetMenuSobrePokemon(posicaoPokemon);
                                                 break;
                                             case 4:
-                                                DormirMascote(posicaoPokemon);
-                                                Console.WriteLine("Mascote dormiu bastante z_z");
-                                                Console.WriteLine(GetMenuSobrePokemon(NomeUsuario, posicaoPokemon));
+                                                _tamagochiDto.Descansar();
+                                                GetMenuSobrePokemon(posicaoPokemon);
                                                 break;
                                             case 5:
-                                                Console.WriteLine(GetMenuPrincipal(NomeUsuario));
+                                                _tamagochiDto.DarCarinho();
+                                                GetMenuSobrePokemon(posicaoPokemon);
+                                                break;
+                                            case 6:
+                                                GetMenuPrincipal();
                                                 continuarMenuPokemons = 0;
                                                 break;
                                             default:
-                                                Console.WriteLine("Escolha inválida. Tente novamente.");
+                                                Console.WriteLine("Escolha inválida. Tente novamente.\n");
                                                 break;
                                         }
                                     }

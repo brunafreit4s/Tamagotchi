@@ -54,7 +54,7 @@ namespace Tamagochi.Controllers
             }
         }
 
-        public string GetSobrePokemon(int opcao)
+        public void GetSobrePokemon(int opcao)
         {
             Task<Pokemon> pokedex = GetPokemonApi(opcao);
 
@@ -72,7 +72,7 @@ namespace Tamagochi.Controllers
                 }
             }
 
-            return escolhido.ToUpper();
+            Console.Write(escolhido.ToUpper());
         }                  
     }
 }

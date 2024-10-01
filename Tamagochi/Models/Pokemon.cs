@@ -11,7 +11,7 @@ namespace Tamagochi.Models
         public string? Nome { get; set; }
 
         [JsonPropertyName("abilities")]
-        public List<Abilities>? Habilidades { get; set; }
+        public List<Abilities> Habilidades { get; set; }
 
         [JsonPropertyName("height")]
         public int Altura { get; set; }

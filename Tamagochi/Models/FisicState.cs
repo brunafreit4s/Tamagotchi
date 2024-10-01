@@ -2,8 +2,9 @@
 {
     public class FisicState
     {
-        public int Fome { get; set; } = 10;
-        public int Humor { get; set; } = 10;
-        public int Sono { get; set; } = 10;
+        public int Alimentacao { get; set; }
+        public int Humor { get; set; }
+        public int Energia { get; set; }
+        public int Saude { get; set; }
     }
 }
