@@ -1,18 +1,29 @@
 ﻿namespace Tamagochi.Models.DTO
 {
-    public class TamagotchiDto : Pokemon
+    public class TamagotchiDto
     {
+        public int Id { get; set; }
+        public int Alimentacao { get; private set; }
+        public int Humor { get; private set; }
+        public int Energia { get; private set; }
+        public int Saude { get; private set; }
+        public int Altura { get; set; }
+        public int Peso { get; set; }
+        public string Nome { get; set; }
+        public List<Abilities> Habilidades { get; set; }       
+
         public TamagotchiDto()
         {
             var rand = new Random();
-            Status.Alimentacao = rand.Next(11);
-            Status.Humor = rand.Next(11);
-            Status.Energia = rand.Next(11);
-            Status.Saude = rand.Next(11);
+            Alimentacao = rand.Next(11);
+            Humor = rand.Next(11);
+            Energia = rand.Next(11);
+            Saude = rand.Next(11);
         }
 
         public void AtualizarPropriedades(Pokemon pokemonDetails)
         {
+            Id = pokemonDetails.Id;
             Nome = pokemonDetails.Nome;
             Altura = pokemonDetails.Altura;
             Peso = pokemonDetails.Peso;
@@ -21,17 +32,17 @@
 
         public void Alimentar()
         {
-            Status.Alimentacao = Math.Min(Status.Alimentacao + 2, 10);
-            Status.Energia = Math.Max(Status.Energia - 1, 0);
+            Alimentacao = Math.Min(Alimentacao + 2, 10);
+            Energia = Math.Max(Energia - 1, 0);
 
             Console.WriteLine("Pokémon Alimentado!!! =^-^=\n");
         }
 
         public void Brincar()
         {
-            Status.Humor = Math.Min(Status.Humor + 3, 10);
-            Status.Energia = Math.Max(Status.Energia - 2, 0);
-            Status.Alimentacao = Math.Max(Status.Alimentacao - 1, 0);
+            Humor = Math.Min(Humor + 3, 10);
+            Energia = Math.Max(Energia - 2, 0);
+            Alimentacao = Math.Max(Alimentacao - 1, 0);
 
             Console.WriteLine("Pokémon se divertiu bastante *_*\n");
 
@@ -39,8 +50,8 @@
 
         public void Descansar()
         {
-            Status.Energia = Math.Min(Status.Energia + 4, 10);
-            Status.Humor = Math.Max(Status.Humor - 1, 0);
+            Energia = Math.Min(Energia + 4, 10);
+            Humor = Math.Max(Humor - 1, 0);
 
             Console.WriteLine("Pokémon dormiu bastante z_z\n");
 
@@ -48,20 +59,20 @@
 
         public void DarCarinho()
         {
-            Status.Humor = Math.Min(Status.Humor + 2, 10);
-            Status.Saude = Math.Min(Status.Saude + 1, 10);
+            Humor = Math.Min(Humor + 2, 10);
+            Saude = Math.Min(Saude + 1, 10);
 
             Console.WriteLine("Pokémon está se sentindo amado! <3");
 
         }
 
         public void MostrarStatus()
-        {
-            Console.WriteLine("Status do Pokémon:");
-            Console.WriteLine($"Alimentação: {Status.Alimentacao}");
-            Console.WriteLine($"Humor: {Status.Humor}");
-            Console.WriteLine($"Energia: {Status.Energia}");
-            Console.WriteLine($"Saúde: {Status.Saude}");
+        {   
+            Console.WriteLine($"Status do Pokémon: ");
+            Console.WriteLine($"Alimentação: {Alimentacao}");
+            Console.WriteLine($"Humor: {Humor}");
+            Console.WriteLine($"Energia: {Energia}");
+            Console.WriteLine($"Saúde: {Saude}");
         }
     }
 }

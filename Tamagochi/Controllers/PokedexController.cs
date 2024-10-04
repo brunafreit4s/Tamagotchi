@@ -5,19 +5,23 @@ namespace Tamagochi.Controllers
 {
     public class PokedexController : PokemonController
     {
-        public Pokedex pokedex = new Pokedex();
-        public List<TamagotchiDto> pokedex2 = new List<TamagotchiDto>();
+        public List<TamagotchiDto> tamagotchiDtos = new List<TamagotchiDto>();
         private Pokemon _pokemon = new Pokemon();
 
         public void PutPokedex(int codPokemon)
         {
             var response = GetPokemonApi(codPokemon).Result;
+            TamagotchiDto tamagotchi = new TamagotchiDto();
 
             if (response != null)
             {
-                var tamagotchi = new TamagotchiDto();
-                tamagotchi.AtualizarPropriedades(response);
-                pokedex2.Add(tamagotchi);
+                var exists = tamagotchiDtos.Any(item => item.Id == response.Id);
+
+                if (!exists)
+                {
+                    tamagotchi.AtualizarPropriedades(response);
+                    tamagotchiDtos.Add(tamagotchi);
+                }
             }
         }       
         
@@ -25,15 +29,15 @@ namespace Tamagochi.Controllers
         {
             string retorno = "\n---------------------------------------- Pokedex ----------------------------------------\n";
 
-            if (pokedex2.Count != 0)
+            if (tamagotchiDtos.Count > 0)
             {
-                string textPokemon = (pokedex2.Count > 1) ? "Pokemons" : "Pokemon";
+                string textPokemon = (tamagotchiDtos.Count > 1) ? "Pokemons:" : "Pokemon:";
 
-                retorno += $"\nVocê tem {pokedex2.Count} {textPokemon}";
+                retorno += $"\nVocê tem {tamagotchiDtos.Count} {textPokemon}\n";
 
-                for (int i = 0; i < pokedex2.Count; i++)
+                for (int i = 0; i < tamagotchiDtos.Count; i++)
                 {
-                    retorno += $"\n{i + 1} - {pokedex2[i].Nome}\n";
+                    retorno += $"\n{i + 1} - {tamagotchiDtos[i].Nome}";
                 }
             }
             else
@@ -51,18 +55,22 @@ namespace Tamagochi.Controllers
                 retorno += $"     ▀████████████████▀      \n";
             }
 
-            Console.Write(retorno.ToUpper());
+            Console.WriteLine(retorno.ToUpper());
         }
-        
-        public Pokemon GetPokemon(int posicaoPokemon)
+
+        public bool TryPokedex()
+        {
+            if (tamagotchiDtos.Count > 0) return true; else return false;
+        }
+
+        public Pokemon GetPokemonNaPokedex(int posicaoPokemon)
         {
             posicaoPokemon = (posicaoPokemon - 1);
-            _pokemon.Id = pokedex2[posicaoPokemon].Id;
-            _pokemon.Nome = pokedex2[posicaoPokemon].Nome;
-            _pokemon.Status.Alimentacao = pokedex2[posicaoPokemon].Status.Alimentacao;
-            _pokemon.Status.Humor = pokedex2[posicaoPokemon].Status.Humor;
-            _pokemon.Status.Energia = pokedex2[posicaoPokemon].Status.Energia;
-            _pokemon.Status.Saude = pokedex2[posicaoPokemon].Status.Saude;
+            _pokemon.Nome = tamagotchiDtos[posicaoPokemon].Nome;
+            _pokemon.Status.Alimentacao = tamagotchiDtos[posicaoPokemon].Alimentacao;
+            _pokemon.Status.Humor = tamagotchiDtos[posicaoPokemon].Humor;
+            _pokemon.Status.Energia = tamagotchiDtos[posicaoPokemon].Energia;
+            _pokemon.Status.Saude = tamagotchiDtos[posicaoPokemon].Saude;
             return _pokemon;
         }
     }

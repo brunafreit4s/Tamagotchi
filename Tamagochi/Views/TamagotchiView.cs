@@ -8,7 +8,7 @@ namespace Tamagochi.Views
         {
             TamagotchiController tamagochiController = new TamagotchiController();
 
-            Console.WriteLine(tamagochiController.Titulo + "\nQual seu nome?");
+            Console.WriteLine(tamagochiController.Titulo + "\n\n\nQual seu nome?\n");
 
             tamagochiController.NomeUsuario = Console.ReadLine();
 

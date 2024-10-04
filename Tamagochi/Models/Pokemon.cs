@@ -8,7 +8,7 @@ namespace Tamagochi.Models
         public int Id { get; set; }
 
         [JsonPropertyName("name")]
-        public string? Nome { get; set; }
+        public string Nome { get; set; }
 
         [JsonPropertyName("abilities")]
         public List<Abilities> Habilidades { get; set; }

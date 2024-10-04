@@ -40,17 +40,17 @@ namespace Tamagochi.Controllers
             var response = GetPokemonApi(codPokemon).Result;
             string retorno = "\n-------------------- -------------------- -------------------- --------------------\n";
             retorno += $"{NomeUsuario} você deseja:\n";
-            retorno += $"1 - Saber mais sobre {response.Nome}.\n2 - Adotar {response.Nome}.\n3 - Voltar.\n";
+            retorno += $"1 - Saber mais sobre {response.Nome}.\n2 - Adotar {response.Nome}.\n3 - Voltar.\n\n";
 
             Console.WriteLine(retorno.ToUpper());
         }
 
         public void GetMenuSobrePokemon(int posicaoPokemon)
         {
-            var response = GetPokemon(posicaoPokemon);
+            var response = GetPokemonNaPokedex(posicaoPokemon);
             string retorno = "\n---------------------------------------- Menu ----------------------------------------\n";
             retorno += $"{NomeUsuario} você deseja:\n";
-            retorno += $"1 - Saber como {response.Nome} está.\n2 - Alimentar {response.Nome}.\n3 - Brincar com {response.Nome}.\n4 - Colocar {response.Nome} para dormir.\n5 - Dar carinho no {response.Nome}.\n 6 - Voltar.\n";
+            retorno += $"1 - Saber como {response.Nome} está.\n2 - Alimentar {response.Nome}.\n3 - Brincar com {response.Nome}.\n4 - Colocar {response.Nome} para dormir.\n5 - Dar carinho no {response.Nome}.\n6 - Voltar.\n\n";
             Console.WriteLine(retorno.ToUpper());
         }
     }

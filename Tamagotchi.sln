@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tamagochi", "Tamagochi\Tamagochi.csproj", "{BDBD7AB6-950E-49C0-9F1C-62BE9AFB6F97}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tamagotchi", "Tamagochi\Tamagotchi.csproj", "{BDBD7AB6-950E-49C0-9F1C-62BE9AFB6F97}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

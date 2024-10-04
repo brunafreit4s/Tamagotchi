@@ -17,6 +17,7 @@ namespace Tamagochi.Controllers
 
             return menu.ToUpper();
         }
+
         public void RetornaOpcaoInvalida()
         {
             Console.WriteLine("Escolha inválida. Tente novamente.");

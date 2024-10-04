@@ -54,25 +54,29 @@ namespace Tamagochi.Controllers
             }
         }
 
-        public void GetSobrePokemon(int opcao)
+        public void GetSobrePokemon(int codPokemon)
         {
-            Task<Pokemon> pokedex = GetPokemonApi(opcao);
+            Task<Pokemon> pokedex = GetPokemonApi(codPokemon);
 
             string escolhido = $"\nNome do Pokemon: {pokedex.Result.Nome}," +
                                            $"\nAltura: {pokedex.Result.Altura}," +
                                            $"\nPeso: {pokedex.Result.Peso}," +
                                            $"\nHabilidades:\n";
 
-            foreach (var item in pokedex.Result.Habilidades)
+            if(pokedex.Result.Habilidades != null)
             {
-                if (item.Habilidade is null) { escolhido += " - Não tem habilidade\n"; }
-                else
+                foreach (var item in pokedex.Result.Habilidades)
                 {
                     escolhido += " - " + item.Habilidade.Nome + "\n";
                 }
             }
+            else
+            {
+                escolhido += " - Não tem habilidade\n";
+            }
 
             Console.Write(escolhido.ToUpper());
-        }                  
+        }
+        
     }
 }
