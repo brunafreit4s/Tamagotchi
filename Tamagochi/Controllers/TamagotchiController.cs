@@ -1,7 +1,5 @@
 ﻿
 
-using Tamagochi.Models.DTO;
-
 namespace Tamagochi.Controllers
 {
     public class TamagotchiController : MenuController
@@ -14,7 +12,6 @@ namespace Tamagochi.Controllers
 
   
         private UtilController _utilController = new UtilController();
-        TamagotchiDto _tamagochiDto = new TamagotchiDto();
 
         public void GetStart()
         {
@@ -115,23 +112,23 @@ namespace Tamagochi.Controllers
                                             switch (opcaoEscolhida2)
                                             {
                                                 case 1:
-                                                    _tamagochiDto.MostrarStatus();
+                                                    MostrarStatus(posicaoPokemon);
                                                     GetMenuSobrePokemon(posicaoPokemon);
                                                     break;
                                                 case 2:
-                                                    _tamagochiDto.Alimentar();
+                                                    Alimentar(posicaoPokemon);
                                                     GetMenuSobrePokemon(posicaoPokemon);
                                                     break;
                                                 case 3:
-                                                    _tamagochiDto.Brincar();
+                                                    Brincar(posicaoPokemon);
                                                     GetMenuSobrePokemon(posicaoPokemon);
                                                     break;
                                                 case 4:
-                                                    _tamagochiDto.Descansar();
+                                                    Descansar(posicaoPokemon);
                                                     GetMenuSobrePokemon(posicaoPokemon);
                                                     break;
                                                 case 5:
-                                                    _tamagochiDto.DarCarinho();
+                                                    DarCarinho(posicaoPokemon);
                                                     GetMenuSobrePokemon(posicaoPokemon);
                                                     break;
                                                 case 6:

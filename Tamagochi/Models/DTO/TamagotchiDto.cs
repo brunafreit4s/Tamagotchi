@@ -14,11 +14,11 @@
 
         public TamagotchiDto()
         {
-            var rand = new Random();
-            Alimentacao = rand.Next(11);
-            Humor = rand.Next(11);
-            Energia = rand.Next(11);
-            Saude = rand.Next(11);
+            //var rand = new Random();
+            Alimentacao = 10;
+            Humor = 10;
+            Energia = 10;
+            Saude = 10;
         }
 
         public void AtualizarPropriedades(Pokemon pokemonDetails)
