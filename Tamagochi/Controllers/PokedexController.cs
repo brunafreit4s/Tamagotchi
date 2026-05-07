@@ -30,14 +30,16 @@ namespace Tamagochi.Controllers
 
             if (_pokemons.Count > 0)
             {
-                string textPokemon = (_pokemons.Count > 1) ? "Pokemons:" : "Pokemon:";
+                string textPokemon = (_pokemons.Count > 1) ? "Pokemons" : "Pokemon";
 
-                retorno += $"\nVocê tem {_pokemons.Count} {textPokemon}\n";
+                retorno += $"\nVocê tem {_pokemons.Count} {textPokemon}:\n";
 
                 for (int i = 0; i < _pokemons.Count; i++)
                 {
-                    retorno += $"\n{i + 1} - {_pokemons[i].Nome}";
+                    retorno += $"\n{i + 1} - {_pokemons[i].Nome}\n";
                 }
+
+                retorno += $"\nEscolha um para interagir:\n";
             }
             else
             {
