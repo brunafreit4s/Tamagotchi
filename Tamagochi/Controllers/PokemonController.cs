@@ -7,7 +7,7 @@ namespace Tamagochi.Controllers
     {
         public async Task<PokemonResponse> GetListPokemon()
         {
-            string url = "https://pokeapi.co/api/v2/pokemon/";
+            string url = "https://pokeapi.co/api/v2/pokemon/?limit=50";
 
             using (HttpClient client = new HttpClient())
             {
@@ -34,7 +34,7 @@ namespace Tamagochi.Controllers
                 catch (Exception ex)
                 {
                     pokemon.StatusCode = 500;
-                    pokemon.MessageError = "Ocorreu um erro no servidor! - Erro: 1.01";
+                    pokemon.MessageError = $"Ocorreu um erro no servidor - Erro: {ex.Message}";
                     return pokemon;
                 }
             }
